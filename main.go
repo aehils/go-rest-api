@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,12 +27,18 @@ var albums = []album{
 
 func main() {
 	router := gin.Default()
+
 	router.GET("/albums", getfullAlbums)
 	// associating the POST method at the /albums path with the postAlbums function
 	router.POST("/albums", addAlbum)
 	// associating a new GET method with a function that iterates through all resources
 	// returns a single resource by its ID
 	router.GET("/albums/:id", getAlbumID)
+	// new function to slice albums ommitting an album at ID
+	router.DELETE("/albums/:id", removeAlbumID)
+	// function to associate update handler
+	router.PUT("/albums/:id", albumEdit)
+
 	router.Run("localhost:8888")
 }
 
@@ -62,4 +69,45 @@ func getAlbumID(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+}
+
+// handler to remove an album from resource list, located by id
+func removeAlbumID(c *gin.Context) {
+	id := c.Param("id")
+
+	for i, a := range albums {
+		if a.ID == id {
+			deletedTitle := a.Title
+			deletedArtiste := a.Artiste
+			message := fmt.Sprintf("%s by %s has been deleted.", deletedTitle, deletedArtiste)
+			//removing the album at index i
+			albums = append(albums[:i], albums[i+1:]...)
+			c.IndentedJSON(http.StatusOK, gin.H{"message": message})
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+}
+
+func albumEdit(c *gin.Context) {
+	id := c.Param("id")
+	var updatedAlbum album
+
+	if err := c.BindJSON(&updatedAlbum); err != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "Invalid request body."})
+		return
+	}
+
+	for i, a := range albums {
+		if a.ID == id {
+			updatedAlbum.ID = id
+			albums[i] = updatedAlbum
+			updatedTitle := a.Title
+			updatedArtiste := a.Artiste
+			message := fmt.Sprintf("changes made to %s by %s.", updatedTitle, updatedArtiste)
+			c.IndentedJSON(http.StatusOK, gin.H{"message": message})
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Album not found. Cannot PUT"})
 }
