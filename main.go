@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,8 +56,34 @@ func addAlbum(c *gin.Context) {
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
 	}
+
+	// checking
+	if newAlbum.Title == "" || newAlbum.Artiste == "" {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "missing atriste or title"})
+		return
+	}
+
+	// checking
+	inputTitle := strings.ToLower((strings.TrimSpace(newAlbum.Title)))
+	inputArtiste := strings.ToLower((strings.TrimSpace(newAlbum.Artiste)))
+
+	for _, a := range albums {
+		if strings.ToLower(strings.TrimSpace(a.Title)) == inputTitle &&
+			strings.ToLower(strings.TrimSpace(a.Artiste)) == inputArtiste {
+			occupiedID := a.ID
+			message := fmt.Sprintf("album already exists at %s", occupiedID)
+			c.IndentedJSON(http.StatusConflict, gin.H{"message": message})
+			return
+		}
+	}
+
+	lastID := albums[len(albums)-1].ID
+	idNum, _ := strconv.Atoi(lastID)
+	newAlbum.ID = fmt.Sprintf("%03d", (idNum + 1))
 	albums = append(albums, newAlbum)
-	c.IndentedJSON(http.StatusCreated, newAlbum)
+	c.IndentedJSON(http.StatusCreated, gin.H{
+		"message": fmt.Sprintf("Added '%s' by %s at ID %s", newAlbum.Title, newAlbum.Artiste, newAlbum.ID),
+	})
 }
 
 func getAlbumID(c *gin.Context) {
@@ -67,7 +95,6 @@ func getAlbumID(c *gin.Context) {
 			return
 		}
 	}
-
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
