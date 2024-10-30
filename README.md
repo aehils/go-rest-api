@@ -25,13 +25,13 @@ To run this project, you'll need:
 4.  The server will start, and you can access the API on http://localhost:8888 using this line: \
 `curl http://localhost:8888`
 
-## API Endpoints
+# API Endpoints
 
 
-### Get an album by ID
+## Get an album by ID
 Method: GET \
 Endpoint: `/albums/:id` \
-Description: Returns parameters for a single album from the list in JSON format.
+Description: Return data for a single album from the list in JSON format.
 
 Example response:
 
@@ -46,15 +46,15 @@ Example response:
   },
 ]
 ```
-### Get All Albums
+## Get All Albums
 Method: GET \
 Endpoint: `/albums` \
-Description: Returns the full list of albums in JSON format.
+Description: Return the full list of albums in JSON format.
 
-### Add a New Album
+## Add a New Album
 Method: POST \
 Endpoint: `/albums` \
-Description: Adds a new album to the collection. Requires a JSON body. \
+Description: Add a new album to the collection. Requires a JSON body for album information. Returns a message confirming the addition and the sequentially assigned unique ID \
 
 Example request:
 
@@ -67,3 +67,18 @@ Example request:
   "price": 29.99
 }
 ```
+
+Example response:
+
+```
+{
+    "message": "Added 'Love (Deluxe)' by Sade at ID 007"
+}
+```
+
+## Update an Album
+
+Method: PUT \
+Endpoint: `/albums/:id` \
+Description: Update the album stored at an ID in the resource list.
+
