@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -20,28 +22,42 @@ type album struct {
 }
 
 // this slice is the initial set of resources
-var albums = []album{
-	{ID: "001", Title: "My Beautiful Dark Twisted Fantasy", Artiste: "Kanye West", Year: 2010, Price: 59.99},
-	{ID: "002", Title: "Moon Music", Artiste: "Coldplay", Year: 2024, Price: 34.99},
-	{ID: "003", Title: "Modus Vivendi", Artiste: "070 Shake", Year: 2020, Price: 32.59},
-	{ID: "004", Title: "HARDSTONE PSYCHO", Artiste: "Don Toliver", Year: 2024, Price: 42.00},
-}
+var albums []album
 
 func main() {
+
+	// load albums from JSON
+	loadAlbums()
+
 	router := gin.Default()
 
+	// associating album to return full list of albums
 	router.GET("/albums", getfullAlbums)
+
 	// associating the POST method at the /albums path with the postAlbums function
 	router.POST("/albums", addAlbum)
+
 	// associating a new GET method with a function that iterates through all resources
 	// returns a single resource by its ID
 	router.GET("/albums/:id", getAlbumID)
+
 	// new function to slice albums ommitting an album at ID
 	router.DELETE("/albums/:id", removeAlbumID)
+
 	// function to associate update handler
 	router.PUT("/albums/:id", albumEdit)
 
 	router.Run("localhost:8888")
+}
+
+func loadAlbums() {
+	file, err := os.ReadFile("albums.json")
+	if err != nil {
+		// albums will initiate as an empty list if theres an error reading from albums.json
+		albums = []album{}
+		return
+	}
+	json.Unmarshal(file, &albums)
 }
 
 // writing a handler to retreive the full list of resources, albums
