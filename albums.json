@@ -1,30 +1,51 @@
 [
-    {
-        "ID": "001",
-        "Title": "My Beautiful Dark Twisted Fantasy",
-        "Artiste": "Kanye West",
-        "Year": 2010,
-        "Price": 59.99
-    },
-    {
-        "ID": "002",
-        "Title": "Moon Music",
-        "Artiste": "Coldplay",
-        "Year": 2024,
-        "Price": 34.99
-    },
-    {
-        "ID": "003",
-        "Title": "Modus Vivendi",
-        "Artiste": "070 Shake",
-        "Year": 2020,
-        "Price": 32.59
-    },
-    {
-        "ID": "004",
-        "Title": "HARDSTONE PSYCHO",
-        "Artiste": "Don Toliver",
-        "Year": 2024,
-        "Price": 42.00
-    }
+	{
+		"id": "001",
+		"title": "My Beautiful Dark Twisted Fantasy",
+		"artiste": "Kanye West",
+		"year": 2010,
+		"price": 59.99
+	},
+	{
+		"id": "002",
+		"title": "Moon Music",
+		"artiste": "Coldplay",
+		"year": 2024,
+		"price": 34.99
+	},
+	{
+		"id": "003",
+		"title": "Modus Vivendi",
+		"artiste": "070 Shake",
+		"year": 2020,
+		"price": 32.59
+	},
+	{
+		"id": "004",
+		"title": "HARDSTONE PSYCHO",
+		"artiste": "Don Toliver",
+		"year": 2024,
+		"price": 42
+	},
+	{
+		"id": "005",
+		"title": "Love (Deluxe)",
+		"artiste": "Sade",
+		"year": 1992,
+		"price": 59.99
+	},
+	{
+		"id": "006",
+		"title": "Lungu Boy",
+		"artiste": "Asake",
+		"year": 2024,
+		"price": 40.99
+	},
+	{
+		"id": "007",
+		"title": "Heis",
+		"artiste": "Rema",
+		"year": 2024,
+		"price": 69.99
+	}
 ]

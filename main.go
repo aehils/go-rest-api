@@ -135,6 +135,7 @@ func removeAlbumID(c *gin.Context) {
 			message := fmt.Sprintf("%s by %s has been deleted.", deletedTitle, deletedArtiste)
 			//removing the album at index i
 			albums = append(albums[:i], albums[i+1:]...)
+			saveAlbum()
 			c.IndentedJSON(http.StatusOK, gin.H{"message": message})
 			return
 		}
@@ -155,6 +156,8 @@ func albumEdit(c *gin.Context) {
 		if a.ID == id {
 			updatedAlbum.ID = id
 			albums[i] = updatedAlbum
+
+			saveAlbum()
 			updatedTitle := a.Title
 			updatedArtiste := a.Artiste
 			message := fmt.Sprintf("changes made to %s by %s.", updatedTitle, updatedArtiste)
