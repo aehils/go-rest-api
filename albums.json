@@ -1,0 +1,30 @@
+[
+    {
+        "ID": "001",
+        "Title": "My Beautiful Dark Twisted Fantasy",
+        "Artiste": "Kanye West",
+        "Year": 2010,
+        "Price": 59.99
+    },
+    {
+        "ID": "002",
+        "Title": "Moon Music",
+        "Artiste": "Coldplay",
+        "Year": 2024,
+        "Price": 34.99
+    },
+    {
+        "ID": "003",
+        "Title": "Modus Vivendi",
+        "Artiste": "070 Shake",
+        "Year": 2020,
+        "Price": 32.59
+    },
+    {
+        "ID": "004",
+        "Title": "HARDSTONE PSYCHO",
+        "Artiste": "Don Toliver",
+        "Year": 2024,
+        "Price": 42.00
+    }
+]
