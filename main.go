@@ -21,7 +21,7 @@ type album struct {
 	Price   float64 `json:"price"`
 }
 
-// this slice is the initial set of resources
+// variable to hold resource list, will be loaded in main
 var albums []album
 
 func main() {
@@ -60,6 +60,14 @@ func loadAlbums() {
 	json.Unmarshal(file, &albums)
 }
 
+func saveAlbum() {
+	data, err := json.MarshalIndent(albums, "", "	")
+	if err != nil {
+		return
+	}
+	os.WriteFile("albums.json", data, 0644)
+}
+
 // writing a handler to retreive the full list of resources, albums
 func getfullAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
@@ -70,6 +78,7 @@ func getfullAlbums(c *gin.Context) {
 func addAlbum(c *gin.Context) {
 	var newAlbum album
 	if err := c.BindJSON(&newAlbum); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Error binding JSON payload"})
 		return
 	}
 
@@ -97,6 +106,7 @@ func addAlbum(c *gin.Context) {
 	idNum, _ := strconv.Atoi(lastID)
 	newAlbum.ID = fmt.Sprintf("%03d", (idNum + 1))
 	albums = append(albums, newAlbum)
+	saveAlbum()
 	c.IndentedJSON(http.StatusCreated, gin.H{
 		"message": fmt.Sprintf("Added '%s' by %s at ID %s", newAlbum.Title, newAlbum.Artiste, newAlbum.ID),
 	})
