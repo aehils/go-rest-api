@@ -76,9 +76,14 @@ Example response:
 }
 ```
 
-## Update an Album
+## Update an Album by ID
 
 Method: PUT \
 Endpoint: `/albums/:id` \
-Description: Update the album stored at an ID in the resource list.
+Description: Update the album stored at an ID in the resource list. Currently necessary to send a request body complete with all resource parameters. A fix for this is pending - you will soon be able to send only the parameter you wish to update for a spcific resource.
 
+## Delete an Album by ID
+
+Method: PUT \
+Endpoint: `/albums/:id` \
+Description: Remove a resource from the list where they are stored, identified by its ID. (This is an opportunity for me to mention that I will soon be implementing a simpler way of looking up resources: by the names of the artiste, or the album)
