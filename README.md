@@ -1,10 +1,12 @@
 # REST API using GO and Gin
 
-This is a simple web service written in Go using the Gin framework. Its an example of how to create a RESTful API to manage a collection of music albums (in a record shop perhaps). The API allows users to:
+This is a simple API written in Go using the Gin framework. Its an example of how to create a RESTful web service to manage a collection of resources. In this case, music albums (in a record shop perhaps). The API allows users to:
 
-- Recieve a list of all albums (GET request)
-- Retrieve a single album using its ID (GET request)
-- Add a new album to the collection (POST request)
+- Recieve a list of all albums maintained (GET)
+- Retrieve a single album using its ID (GET)
+- Add a new album to the collection (POST)
+- Edit data stored for an album (PUT)
+- Delete an album entry (DELETE)
 
 The project is based on the [Go Web Service with Gin tutorial](https://go.dev/doc/tutorial/web-service-gin).
 
@@ -19,11 +21,12 @@ To run this project, you'll need:
 
 1.  Clone this repository and navigate to the project directory.
 2.  Install the necessary dependencies: \
-`go mod tidy`
+       `go mod tidy`
 3.  Run the application: \
-`go run main.go`
+       `go run main.go`
 4.  The server will start, and you can access the API on http://localhost:8888 using this line: \
-`curl http://localhost:8888`
+       `curl http://localhost:8888`
+    You can use any port available on your host machine, of course. This is just the one I have chose arbitrarily.
 
 # API Endpoints
 
