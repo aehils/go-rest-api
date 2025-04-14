@@ -20,12 +20,15 @@ To run this project, you'll need:
 ## Running the Project
 
 1.  Clone this repository and navigate to the project directory.
-2.  Install the necessary dependencies: \
-       `go mod tidy`
-3.  Run the application: \
-       `go run main.go`
-4.  The server will start, and you can access the API on http://localhost:8888 using this line: \
-       `curl http://localhost:8888`
+2.  Install the necessary dependencies:
+   
+              `go mod tidy`
+4.  Run the application:
+   
+              `go run main.go`
+6.  The server will start, and you can access the API on http://localhost:8888 using this line:
+
+              `curl http://localhost:8888`
     You can use any port available on your host machine, of course. This is just the one I have chose arbitrarily.
 
 # API Endpoints
